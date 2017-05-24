@@ -22,10 +22,7 @@ given my $o = Graphics::PLplot.new(
     $o.init;
 
     # Create a labelled box to hold the plot.
-    my $xmin = 0.0;
-    my $xmax = 1.0;
-    my $ymin = 0.0;
-    my $ymax = 100;
+    my ($xmin, $xmax, $ymin, $ymax) = (0.0, 1.0, 0.0, 100);
     .viewport( $xmin, $xmax, $ymin, $ymax, 0, 0 );
     .label("x", "y=100 x#u2#d", "Simple PLplot demo of a 2D line plot" );
 
