@@ -9,7 +9,7 @@ use Graphics::PLplot::Raw;
 has Str $.device;
 has Str $.file-name;
 
-method init {
+method begin {
     # Set output device
     plsdev($!device);
 
@@ -29,18 +29,21 @@ method label(Str $xlabel, Str $ylabel, Str $tlabel) {
 }
 
 # Plot the data
-method line(Int $size, @x, @y) {
-    my $x = CArray[num64].new;
-    my $y = CArray[num64].new;
-    for 0..$size -> $i {
-        $x[$i] = @x[$i];
-        $y[$i] = @y[$i];
+method line(@x, @y) {
+    die "Input arrays must be equal in size" if @x.elems != @y.elems;
+
+    my $xc   = CArray[num64].new;
+    my $yc   = CArray[num64].new;
+    my $size = @x.elems;
+    for 0..^$size -> $i {
+        $xc[$i] = @x[$i];
+        $yc[$i] = @y[$i];
     }
 
-    plline( $size, $x, $y );
+    plline( $size, $xc, $yc );
 }
 
-method cleanup {
+method end {
     # Close PLplot library
     plend;
 }

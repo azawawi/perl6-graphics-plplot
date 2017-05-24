@@ -11,7 +11,7 @@ if Graphics::PLplot.new(
 ) -> $plot  {
 
     # Initialize plot
-    $plot.init;
+    $plot.begin;
 
     # Create a labelled box to hold the plot.
     my ($xmin, $xmax, $ymin, $ymax) = (0.0, 1.0, 0.0, 100);
@@ -22,15 +22,16 @@ if Graphics::PLplot.new(
     my @x;
     my @y;
     constant NSIZE = 101;
-    for 0..NSIZE -> $i {
-        @x.push: Num($i) / ( NSIZE - 1 );
-        @y.push: Num($ymax * @x[$i] * @x[$i]);
+    for 0..^NSIZE -> $i {
+        my $x = Num($i) / ( NSIZE - 1 );
+        @x.push: $x;
+        @y.push: Num($ymax * $x * $x);
     }
 
     # Plot the data that was prepared above.
-    $plot.line( NSIZE, @x, @y);
+    $plot.line(@x, @y);
 
     LEAVE {
-        $plot.cleanup;
+        $plot.end;
     }
 }
