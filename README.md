@@ -25,7 +25,7 @@ if Graphics::PLplot.new(
 
     # Create a labelled box to hold the plot.
     my ($xmin, $xmax, $ymin, $ymax) = (0.0, 1.0, 0.0, 100);
-    $plot.viewport( $xmin, $xmax, $ymin, $ymax, 0, 0 );
+    $plot.environment( $xmin, $xmax, $ymin, $ymax, 0, 0 );
     $plot.label("x", "y=100 x#u2#d", "Simple PLplot demo of a 2D line plot" );
 
     # Prepare data to be plotted.

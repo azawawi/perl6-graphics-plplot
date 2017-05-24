@@ -20,7 +20,7 @@ method init {
     plinit;
 }
 
-method viewport($xmin, $xmax, $ymin, $ymax, $just, $axis) {
+method environment($xmin, $xmax, $ymin, $ymax, $just, $axis) {
     plenv( $xmin.Num, $xmax.Num, $ymin.Num, $ymax.Num, $just, $axis );
 }
 
