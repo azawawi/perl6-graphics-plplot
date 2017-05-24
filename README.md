@@ -1,4 +1,5 @@
 # Graphics::PLplot
+[![Build Status](https://travis-ci.org/azawawi/perl6-graphics-plplot.svg?branch=master)](https://travis-ci.org/azawawi/perl6-graphics-plplot) [![Build status](https://ci.appveyor.com/api/projects/status/github/azawawi/perl6-graphics-plplot?svg=true)](https://ci.appveyor.com/project/azawawi/perl6-graphics-plplot/branch/master)
 
 This module provides Perl 6 native bindings for
 [PLplot](http://plplot.sourceforge.net/)
