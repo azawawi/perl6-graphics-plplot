@@ -20,24 +20,23 @@ method begin {
     plinit;
 }
 
-method environment($xmin, $xmax, $ymin, $ymax, $just, $axis) {
-    plenv( $xmin.Num, $xmax.Num, $ymin.Num, $ymax.Num, $just, $axis );
+method environment(:$x-range, :$y-range, :$just, :$axis) {
+    plenv( $x-range[0].Num, $x-range[1].Num, $y-range[0].Num, $y-range[1].Num,
+        $just, $axis );
 }
 
-method label(Str $xlabel, Str $ylabel, Str $tlabel) {
-    pllab( $xlabel, $ylabel, $tlabel );
+method label(Str :$x-axis, Str :$y-axis, Str :$title) {
+    pllab( $x-axis, $y-axis, $title );
 }
 
 # Plot the data
-method line(@x, @y) {
-    die "Input arrays must be equal in size" if @x.elems != @y.elems;
-
+method line(@points) {
     my $xc   = CArray[num64].new;
     my $yc   = CArray[num64].new;
-    my $size = @x.elems;
+    my $size = @points.elems;
     for 0..^$size -> $i {
-        $xc[$i] = @x[$i];
-        $yc[$i] = @y[$i];
+        $xc[$i] = @points[$i][0];
+        $yc[$i] = @points[$i][1];
     }
 
     plline( $size, $xc, $yc );

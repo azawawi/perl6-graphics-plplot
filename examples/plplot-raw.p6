@@ -13,7 +13,7 @@ plsfnam("output.png");
 # Initialize plplot
 plinit;
 
-# Create a labelled box to hold the plot.
+# Create a labeled box to hold the plot.
 my ($xmin, $xmax, $ymin, $ymax) = (0.0, 1.0, 0.0, 100);
 plenv( $xmin.Num, $xmax.Num, $ymin.Num, $ymax.Num, 0, 0 );
 pllab( "x", "y=100 x#u2#d", "Simple PLplot demo of a 2D line plot" );
