@@ -15,16 +15,18 @@ under LGPL.
 use v6;
 use Graphics::PLplot;
 
-given my $o = Graphics::PLplot.new(
+if Graphics::PLplot.new(
     device    => "png",
     file-name => "output.png"
-) {
-    $o.init;
+) -> $plot  {
+
+    # Initialize plot
+    $plot.init;
 
     # Create a labelled box to hold the plot.
     my ($xmin, $xmax, $ymin, $ymax) = (0.0, 1.0, 0.0, 100);
-    .viewport( $xmin, $xmax, $ymin, $ymax, 0, 0 );
-    .label("x", "y=100 x#u2#d", "Simple PLplot demo of a 2D line plot" );
+    $plot.viewport( $xmin, $xmax, $ymin, $ymax, 0, 0 );
+    $plot.label("x", "y=100 x#u2#d", "Simple PLplot demo of a 2D line plot" );
 
     # Prepare data to be plotted.
     my @x;
@@ -36,10 +38,10 @@ given my $o = Graphics::PLplot.new(
     }
 
     # Plot the data that was prepared above.
-    .line( NSIZE, @x, @y);
+    $plot.line( NSIZE, @x, @y);
 
     LEAVE {
-        .cleanup if $o;
+        $plot.cleanup;
     }
 }
 ```
