@@ -14,7 +14,7 @@
     "tags"          : [
         "Chart",
         "Plot",
-        "NativeCall",
+        "NativeCall"
     ],
     "test-depends"  : [
         "Test"
