@@ -12,7 +12,7 @@ use Graphics::PLplot::Raw;
 
 # Set Output device and filename
 plsdev("png");
-plsfnam("ex02.png");
+plsfnam("ex03.png");
 
 # Set orientation to portrait - note not all device drivers
 # support this, in particular most interactive drivers do not
