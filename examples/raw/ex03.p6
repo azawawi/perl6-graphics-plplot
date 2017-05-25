@@ -1,3 +1,5 @@
+#!/usr/bin/env perl6
+
 #
 # Polar plot demo.
 # Original C example: http://plplot.sourceforge.net/examples.php?demo=03
