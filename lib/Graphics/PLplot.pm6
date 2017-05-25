@@ -57,8 +57,8 @@ method orientation(Int $orientation) {
 method arc(:$center, :$semi-major, :$semi-minor, :$angle1, :$angle2, :$rotate,
     Bool :$fill)
 {
-    plarc($center[0].Num, $center[1].Num, $semi-major.Num, $semi-minor.Num, $angle1.Num,
-        $angle2.Num, $rotate.Num, $fill);
+    plarc($center[0].Num, $center[1].Num, $semi-major.Num, $semi-minor.Num,
+        $angle1.Num, $angle2.Num, $rotate.Num, $fill);
 }
 
 =begin pod
@@ -110,7 +110,8 @@ Write text inside the viewport
 
 =end pod
 method text(:@point, :@inclination, :$just, :$text) {
-    plptex( @point[0].Num, @point[1].Num, @inclination[0].Num, @inclination[1].Num, $just.Num, $text );
+    plptex( @point[0].Num, @point[1].Num, @inclination[0].Num,
+        @inclination[1].Num, $just.Num, $text );
 }
 
 =begin pod
