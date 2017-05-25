@@ -7,7 +7,7 @@ use Graphics::PLplot;
 
 if Graphics::PLplot.new(
     device    => "png",
-    file-name => "output.png"
+    file-name => "ex01.png"
 ) -> $plot  {
 
     # Begin plotting

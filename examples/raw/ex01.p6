@@ -8,7 +8,7 @@ use NativeCall;
 
 # Set Output device and filename
 plsdev("png");
-plsfnam("output.png");
+plsfnam("ex01.png");
 
 # Initialize plplot
 plinit;
