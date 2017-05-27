@@ -173,3 +173,8 @@ sub plstring3(int32, CArray[num64], CArray[num64], CArray[num64], Str)
     is symbol('c_plstring3')
     is native(&library)
     is export { * }
+
+sub plpoly3(int32, CArray[num64], CArray[num64], CArray[num64], CArray[int32], int32)
+    is symbol('c_plpoly3')
+    is native(&library)
+    is export { * }

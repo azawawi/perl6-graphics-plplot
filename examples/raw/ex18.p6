@@ -15,12 +15,12 @@ use Graphics::PLplot::Raw;
 # viewing options in each plot.
 #
 
+my @opt = 1, 0, 1, 0;
+my @alt = 20.0, 35.0, 50.0, 65.0;
+my @az  = 30.0, 40.0, 50.0, 60.0;
+
 sub MAIN {
     constant NPTS = 1000;
-
-    my @opt = 1, 0, 1, 0;
-    my @alt = 20.0, 35.0, 50.0, 65.0;
-    my @az  = 30.0, 40.0, 50.0, 60.0;
 
     # Set Output device
     plsdev("wxwidgets");
@@ -77,65 +77,64 @@ sub MAIN {
 }
 
 sub test-poly($k) {
-    
-}
-
-=finish
-
-sub test_poly($k) {
-    PLINT draw[][4] = { { 1, 1, 1, 1 },
-                        { 1, 0, 1, 0 },
-                        { 0, 1, 0, 1 },
-                        { 1, 1, 0, 0 } };
-
-    pi = M_PI, two_pi = 2. * pi;
-
-    x = (PLFLT *) malloc(5 * sizeof (PLFLT));
-    y = (PLFLT *) malloc(5 * sizeof (PLFLT));
-    z = (PLFLT *) malloc(5 * sizeof (PLFLT));
+    my @draw = (1, 1, 1, 1),
+               ( 1, 0, 1, 0 ),
+               ( 0, 1, 0, 1 ),
+               ( 1, 1, 0, 0 );
 
     pladv(0);
-    plvpor(0.0, 1.0, 0.0, 0.9);
-    plwind(-1.0, 1.0, -0.9, 1.1);
+    plvpor(0.0.Num, 1.0.Num, 0.0.Num, 0.9.Num);
+    plwind(-1.0.Num, 1.0.Num, -0.9.Num, 1.1.Num);
     plcol0(1);
-    plw3d(1.0, 1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, alt[k], az[k]);
-    plbox3("bnstu", "x axis", 0.0, 0,
-        "bnstu", "y axis", 0.0, 0,
-        "bcdmnstuv", "z axis", 0.0, 0);
+    plw3d(1.0.Num, 1.0.Num, 1.0.Num, -1.0.Num, 1.0.Num, -1.0.Num, 1.0.Num, -1.0.Num, 1.0.Num, @alt[$k].Num, @az[$k].Num);
+    plbox3("bnstu", "x axis", 0.0.Num, 0,
+        "bnstu", "y axis", 0.0.Num, 0,
+        "bcdmnstuv", "z axis", 0.0.Num, 0);
+
+    my $x = CArray[num64].new;
+    my $y = CArray[num64].new;
+    my $z = CArray[num64].new;
 
     plcol0(2);
 
-#define THETA(a)    (two_pi * (a) / 20.)
-#define PHI(a)      (pi * (a) / 20.1)
+    my sub THETA($a) {
+        2.0 * pi * ($a) / 20.0
+    }
 
-    for (i = 0; i < 20; i++)
-    {
-        for (j = 0; j < 20; j++)
-        {
-            x[0] = sin(PHI(j)) * cos(THETA(i));
-            y[0] = sin(PHI(j)) * sin(THETA(i));
-            z[0] = cos(PHI(j));
+    my sub PHI($a) {
+        pi * ($a) / 20.1
+    }
 
-            x[1] = sin(PHI(j + 1)) * cos(THETA(i));
-            y[1] = sin(PHI(j + 1)) * sin(THETA(i));
-            z[1] = cos(PHI(j + 1));
+    for ^20 -> $i {
+        for ^20 -> $j {
+            $x[0] = sin(PHI($j)) * cos(THETA($i));
+            $y[0] = sin(PHI($j)) * sin(THETA($i));
+            $z[0] = cos(PHI($j));
 
-            x[2] = sin(PHI(j + 1)) * cos(THETA(i + 1));
-            y[2] = sin(PHI(j + 1)) * sin(THETA(i + 1));
-            z[2] = cos(PHI(j + 1));
+            $x[1] = sin(PHI($j + 1)) * cos(THETA($i));
+            $y[1] = sin(PHI($j + 1)) * sin(THETA($i));
+            $z[1] = cos(PHI($j + 1));
 
-            x[3] = sin(PHI(j)) * cos(THETA(i + 1));
-            y[3] = sin(PHI(j)) * sin(THETA(i + 1));
-            z[3] = cos(PHI(j));
+            $x[2] = sin(PHI($j + 1)) * cos(THETA($i + 1));
+            $y[2] = sin(PHI($j + 1)) * sin(THETA($i + 1));
+            $z[2] = cos(PHI($j + 1));
 
-            x[4] = sin(PHI(j)) * cos(THETA(i));
-            y[4] = sin(PHI(j)) * sin(THETA(i));
-            z[4] = cos(PHI(j));
+            $x[3] = sin(PHI($j)) * cos(THETA($i + 1));
+            $y[3] = sin(PHI($j)) * sin(THETA($i + 1));
+            $z[3] = cos(PHI($j));
 
-            plpoly3(5, x, y, z, draw[k], 1);
+            $x[4] = sin(PHI($j)) * cos(THETA($i));
+            $y[4] = sin(PHI($j)) * sin(THETA($i));
+            $z[4] = cos(PHI($j));
+
+            my $draw = CArray[int32].new;
+            for 0..3 -> $o {
+                $draw[$o] = @draw[$k][$o];
+            }
+            plpoly3(5, $x, $y, $z, $draw, 1);
         }
     }
 
     plcol0(3);
-    plmtex("t", 1.0, 0.5, 0.5, "unit radius sphere");
+    plmtex("t", 1.0.Num, 0.5.Num, 0.5.Num, "unit radius sphere");
 }
