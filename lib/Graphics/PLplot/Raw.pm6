@@ -153,3 +153,23 @@ sub plscmap0(CArray[int32], CArray[int32], CArray[int32], int32)
     is symbol('c_plscmap0')
     is native(&library)
     is export { * }
+
+sub plbox3(Str, Str, num64, int32, Str, Str, num64, int32, Str, Str, num64, int32)
+    is symbol('c_plbox3')
+    is native(&library)
+    is export { * }
+
+sub plw3d(num64, num64, num64, num64, num64, num64, num64, num64, num64, num64, num64)
+    is symbol('c_plw3d')
+    is native(&library)
+    is export { * }
+
+sub plline3(int32, CArray[num64], CArray[num64], CArray[num64])
+    is symbol('c_plline3')
+    is native(&library)
+    is export { * }
+
+sub plstring3(int32, CArray[num64], CArray[num64], CArray[num64], Str)
+    is symbol('c_plstring3')
+    is native(&library)
+    is export { * }
