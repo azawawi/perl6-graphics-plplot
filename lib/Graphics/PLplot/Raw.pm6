@@ -138,3 +138,18 @@ sub pladv(int32)
     is symbol('c_pladv')
     is native(&library)
     is export { * }
+
+sub plhlsrgb(num64, num64, num64, num64 is rw, num64 is rw, num64 is rw)
+    is symbol('c_plhlsrgb')
+    is native(&library)
+    is export { * }
+
+sub plgcol0(int32, int32 is rw, int32 is rw, int32 is rw)
+    is symbol('c_plgcol0')
+    is native(&library)
+    is export { * }
+
+sub plscmap0(CArray[int32], CArray[int32], CArray[int32], int32)
+    is symbol('c_plscmap0')
+    is native(&library)
+    is export { * }

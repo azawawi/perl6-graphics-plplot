@@ -10,8 +10,8 @@ use lib 'lib';
 use Graphics::PLplot;
 
 if Graphics::PLplot.new(
-    device    => "png",
-    file-name => "ex00.png"
+    device    => "wxwidgets",
+    #file-name => "ex00.png"
 ) -> $plot  {
 
     # Begin plotting

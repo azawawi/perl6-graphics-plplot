@@ -9,14 +9,27 @@
 
 use v6;
 use lib 'lib';
+use NativeCall;
 use Graphics::PLplot::Raw;
 
-#--------------------------------------------------------------------------
-# draw_windows
+sub MAIN {
+    # Set Output device
+    plsdev("wxwidgets");
+
+    # Initialize plplot
+    plinit;
+
+    # Run demos
+    demo1;
+    demo2;
+
+    plend;
+}
+
 #
 # Draws a set of numbered boxes with colors according to cmap0 entry.
-#--------------------------------------------------------------------------
-sub draw_windows( Int $nw, Int $cmap0-offset )
+#
+sub draw-windows( Int $nw, Int $cmap0-offset )
 {
     plschr( 0.0.Num, 3.5.Num );
     plfont( 4 );
@@ -40,102 +53,83 @@ sub draw_windows( Int $nw, Int $cmap0-offset )
     }
 }
 
-#--------------------------------------------------------------------------
-# demo1
+
 #
 # Demonstrates multiple windows and default color map 0 palette.
-#--------------------------------------------------------------------------
+#
 sub demo1 {
     plbop;
 
     # Divide screen into 16 regions
     plssub( 4, 4 );
 
-    draw_windows( 16, 0 );
+    draw-windows( 16, 0 );
 
     pleop;
 }
 
-#--------------------------------------------------------------------------
-# demo2
 #
-# Demonstrates multiple windows, user-modified color map 0 palette, and
-# HLS -> RGB translation.
-#--------------------------------------------------------------------------
+# Demonstrates multiple windows, user-modified color map 0 palette, and HLS ->
+# RGB translation.
+#
 sub demo2 {
+    # Set up cmap0
+    # Use 100 custom colors in addition to base 16
+    my $r = CArray[int32].new;
+    my $g = CArray[int32].new;
+    my $b = CArray[int32].new;
     
-}
-
-# Set Output device and filename
-plsdev("png");
-plsfnam("ex02.png");
-
-# Initialize plplot
-plinit;
-
-# Run demos
-demo1;
-demo2;
-
-plend;
-
-=finish
-
-void demo2( void )
-{
-// Set up cmap0
-// Use 100 custom colors in addition to base 16
-    PLINT r[116], g[116], b[116];
-
-// Min & max lightness values
-    PLFLT lmin = 0.15, lmax = 0.85;
-
-    int   i;
-
-    plbop();
-
-// Divide screen into 100 regions
-
-    plssub( 10, 10 );
-
-    for ( i = 0; i <= 99; i++ )
-    {
-        PLFLT h, l, s;
-        PLFLT r1, g1, b1;
-
-        // Bounds on HLS, from plhlsrgb() commentary --
-        //	hue		[0., 360.]	degrees
-        //	lightness	[0., 1.]	magnitude
-        //	saturation	[0., 1.]	magnitude
-        //
-
-        // Vary hue uniformly from left to right
-        h = ( 360. / 10. ) * ( i % 10 );
-        // Vary lightness uniformly from top to bottom, between min & max
-        l = lmin + ( lmax - lmin ) * ( i / 10 ) / 9.;
-        // Use max saturation
-        s = 1.0;
-
-        plhlsrgb( h, l, s, &r1, &g1, &b1 );
-        //printf("%3d %15.9f %15.9f %15.9f %15.9f %15.9f %15.9f\n",
-        //     i+16,h,l,s,r1,g1,b1);
-
-        // Use 255.001 to avoid close truncation decisions in this example.
-        r[i + 16] = (PLINT) ( r1 * 255.001 );
-        g[i + 16] = (PLINT) ( g1 * 255.001 );
-        b[i + 16] = (PLINT) ( b1 * 255.001 );
+    for 0..115 -> $i {
+        $r[$i] = 0;
+        $g[$i] = 0;
+        $b[$i] = 0;
     }
 
-// Load default cmap0 colors into our custom set
-    for ( i = 0; i <= 15; i++ )
-        plgcol0( i, &r[i], &g[i], &b[i] );
+    # Min & max lightness values
+    my ($lmin, $lmax) = (0.15, 0.85);
 
-//    for (i = 0; i < 116; i++)
-//      printf("%3d %3d %3d %3d \n", i, r[i], g[i], b[i]);
-// Now set cmap0 all at once (faster, since fewer driver calls)
-    plscmap0( r, g, b, 116 );
+    plbop;
 
-    draw_windows( 100, 16 );
+    # Divide screen into 100 regions
+    plssub( 10, 10 );
 
-    pleop();
+    for 0..99 -> $i {
+        #
+        # Bounds on HLS, from plhlsrgb commentary:
+        # hue           [0., 360.]  degrees
+        # lightness     [0., 1.]    magnitude
+        # saturation    [0., 1.]    magnitude
+        #
+
+        # Vary hue uniformly from left to right
+        my $h = (( 360.0 / 10.0 ) * ( $i % 10 )).Num;
+        # Vary lightness uniformly from top to bottom, between min & max
+        my $l = ($lmin + ( $lmax - $lmin ) * ( $i / 10 ) / 9.0).Num;
+        # Use max saturation
+        my $s = 1.0.Num;
+
+        my (num64 $r1, num64 $g1, num64 $b1);
+        plhlsrgb( $h, $l, $s, $r1, $g1, $b1 );
+
+        # Use 255.001 to avoid close truncation decisions in this example.
+        $r[$i + 16] = ($r1 * 255.001).Int;
+        $g[$i + 16] = ($g1 * 255.001).Int;
+        $b[$i + 16] = ($b1 * 255.001).Int;
+    }
+
+    # Load default cmap0 colors into our custom set
+    for 0..15 -> $i {
+        my (int32 $red, int32 $green, int32 $blue);
+        plgcol0( $i, $red, $green, $blue );
+        $r[$i] = $red;
+        $g[$i] = $green;
+        $b[$i] = $blue;
+    }
+
+    # Now set cmap0 all at once (faster, since fewer driver calls)
+    plscmap0( $r, $g, $b, 116 );
+
+    draw-windows( 100, 16 );
+
+    pleop;
 }

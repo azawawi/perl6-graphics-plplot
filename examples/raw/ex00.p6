@@ -10,9 +10,8 @@ use lib 'lib';
 use Graphics::PLplot::Raw;
 use NativeCall;
 
-# Set Output device and filename
-plsdev("png");
-plsfnam("ex00.png");
+# Set Output device
+plsdev("wxwidgets");
 
 # Initialize plplot
 plinit;

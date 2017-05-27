@@ -12,8 +12,8 @@ use lib 'lib';
 use Graphics::PLplot;
 
 if Graphics::PLplot.new(
-    device    => "png",
-    file-name => "ex03.png"
+    device    => "wxwidgets",
+    #file-name => "ex03.png"
 ) -> $plot  {
 
     # Set orientation to portrait

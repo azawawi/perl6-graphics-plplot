@@ -12,9 +12,8 @@ use lib 'lib';
 use NativeCall;
 use Graphics::PLplot::Raw;
 
-# Set Output device and filename
-plsdev("png");
-plsfnam("ex03.png");
+# Set Output device
+plsdev("wxwidgets");
 
 # Set orientation to portrait - note not all device drivers
 # support this, in particular most interactive drivers do not
