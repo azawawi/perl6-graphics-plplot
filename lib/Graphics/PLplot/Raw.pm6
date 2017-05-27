@@ -88,3 +88,53 @@ sub plmtex(Str, num64, num64, num64, Str)
     is symbol('c_plmtex')
     is native(&library)
     is export { * }
+
+sub plssub(int32, int32)
+    is symbol('c_plssub')
+    is native(&library)
+    is export { * }
+
+sub plvpor(num64, num64, num64, num64)
+    is symbol('c_plvpor')
+    is native(&library)
+    is export { * }
+
+sub plwind(num64, num64, num64, num64)
+    is symbol('c_plwind')
+    is native(&library)
+    is export { * }
+
+sub plbox(Str, num64, num64, Str, num64, int32)
+    is symbol('c_plbox')
+    is native(&library)
+    is export { * }
+
+sub plwidth(num64)
+    is symbol('c_plwidth')
+    is native(&library)
+    is export { * }
+
+sub plschr(num64, num64)
+    is symbol('c_plschr')
+    is native(&library)
+    is export { * }
+
+sub plfont(int32)
+    is symbol('c_plfont')
+    is native(&library)
+    is export { * }
+
+sub plbop
+    is symbol('c_plbop')
+    is native(&library)
+    is export { * }
+
+sub pleop
+    is symbol('c_pleop')
+    is native(&library)
+    is export { * }
+
+sub pladv(int32)
+    is symbol('c_pladv')
+    is native(&library)
+    is export { * }
