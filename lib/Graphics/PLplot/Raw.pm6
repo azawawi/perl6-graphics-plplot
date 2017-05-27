@@ -104,7 +104,7 @@ sub plwind(num64, num64, num64, num64)
     is native(&library)
     is export { * }
 
-sub plbox(Str, num64, num64, Str, num64, int32)
+sub plbox(Str, num64, int32, Str, num64, int32)
     is symbol('c_plbox')
     is native(&library)
     is export { * }

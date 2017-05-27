@@ -31,12 +31,12 @@ sub draw_windows( Int $nw, Int $cmap0-offset )
             plwidth( ($j + 1).Num );
             plvpor( $vmin.Num, $vmax.Num, $vmin.Num, $vmax.Num );
             plwind( 0.0.Num, 1.0.Num, 0.0.Num, 1.0.Num );
-            plbox( "bc", 0.0.Num, 0.Num, "bc", 0.0.Num, 0 );
+            plbox( "bc", 0.0.Num, 0, "bc", 0.0.Num, 0 );
             $vmin += 0.1;
             $vmax -= 0.1;
         }
         plwidth( 1.Num );
-        plptex( 0.5, 0.5, 1.0, 0.0, 0.5, $text );
+        plptex( 0.5.Num, 0.5.Num, 1.0.Num, 0.0.Num, 0.5.Num, $text );
     }
 }
 
