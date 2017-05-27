@@ -27,6 +27,7 @@ sub MAIN {
         demo2($plot);
 
         LEAVE {
+            # Cleanup
             $plot.end;
         }
     }
@@ -37,25 +38,34 @@ sub MAIN {
 #
 sub draw-windows($plot, Int $nw, Int $cmap0-offset)
 {
-    plschr(0.0.Num, 3.5.Num);
-    plfont(4);
+    $plot.character-size(
+        default => 0.0,
+        scale => 3.5
+    );
+    # Script font
+    $plot.font(4);
 
     for 0..^$nw -> $i {
-        plcol0($i + $cmap0-offset);
+        $plot.color-index0($i + $cmap0-offset);
         my $text = sprintf("%d", $i);
-        pladv(0);
+        $plot.subpage(0);
         my $vmin = 0.1;
         my $vmax = 0.9;
         for 0..2 -> $j {
-            plwidth(($j + 1).Num);
-            plvpor($vmin.Num, $vmax.Num, $vmin.Num, $vmax.Num);
-            plwind(0.0.Num, 1.0.Num, 0.0.Num, 1.0.Num);
-            plbox("bc", 0.0.Num, 0, "bc", 0.0.Num, 0);
+            $plot.pen-width($j + 1);
+            $plot.subpage-viewport($vmin.Num, $vmax.Num, $vmin.Num, $vmax.Num);
+            $plot.window(0.0.Num, 1.0.Num, 0.0.Num, 1.0.Num);
+            $plot.box("bc", 0.0.Num, 0, "bc", 0.0.Num, 0);
             $vmin += 0.1;
             $vmax -= 0.1;
         }
-        plwidth(1.Num);
-        plptex(0.5.Num, 0.5.Num, 1.0.Num, 0.0.Num, 0.5.Num, $text);
+        $plot.pen-width(1.Num);
+        $plot.text(
+            point       => (0.5, 0.5),
+            inclination => (1.0, 0.0),
+            just        => 0.5.Num,
+            text        => $text
+        );
     }
 }
 
@@ -64,14 +74,14 @@ sub draw-windows($plot, Int $nw, Int $cmap0-offset)
 # Demonstrates multiple windows and default color map 0 palette.
 #
 sub demo1($plot) {
-    plbop;
+    $plot.new-page;
 
     # Divide screen into 16 regions
-    plssub(4, 4);
+    $plot.number-of-subpages(4, 4);
 
     draw-windows($plot, 16, 0);
 
-    pleop;
+    $plot.clear-or-eject-page;
 }
 
 #

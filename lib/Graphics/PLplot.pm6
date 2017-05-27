@@ -142,3 +142,43 @@ method version returns Str {
     }
     return $version
 }
+
+method character-size(:$default, :$scale) {
+    plschr($default.Num, $scale.Num);
+}
+
+method font(Int $font) {
+    plfont($font);
+}
+
+method subpage(Int $sub-page) {
+    pladv($sub-page);
+}
+
+method pen-width($width) {
+    plwidth($width.Num)
+}
+
+method subpage-viewport($xmin, $xmax, $ymin, $ymax) {
+    plvpor($xmin.Num, $xmax.Num, $ymin.Num, $ymax.Num);
+}
+
+method window($xmin, $xmax, $ymin, $ymax) {
+    plwind($xmin.Num, $xmax.Num, $ymin.Num, $ymax.Num);
+}
+
+method box(Str $xopt, $xtick, $nxsub, $yopt, $ytick, $nysub) {
+    plbox($xopt, $xtick.Num, $nxsub, $yopt, $ytick.Num, $nysub);
+}
+
+method new-page {
+    plbop
+}
+
+method clear-or-eject-page {
+    pleop
+}
+
+method number-of-subpages($nx, $ny) {
+    plssub($nx, $ny)
+}
