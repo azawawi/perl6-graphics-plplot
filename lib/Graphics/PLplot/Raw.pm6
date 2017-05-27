@@ -13,6 +13,21 @@ sub library {
     return "libplplotd.so";
 }
 
+constant DRAW_LINEX is export  = 0x001; # Draw lines parallel to the X axis
+constant DRAW_LINEY is export  = 0x002; # Draw lines parallel to the Y axis
+constant DRAW_LINEXY is export = 0x003; # Draw lines parallel to both the X and
+                                        # Y axis
+constant MAG_COLOR is export   = 0x004; # Draw the mesh with a color dependent
+                                        # of the
+                                        # magnitude
+constant BASE_CONT is export   = 0x008; # Draw contour plot at bottom xy plane
+constant TOP_CONT is export    = 0x010; # Draw contour plot at top xy plane
+constant SURF_CONT is export   = 0x020; # Draw contour plot at surface
+constant DRAW_SIDES is export  = 0x040; # Draw sides
+constant FACETED is export     = 0x080; # Draw outline for each square that
+                                        # makes up the surface
+constant MESH is export        = 0x100; # Draw mesh
+
 sub plsdev(Str)
     is symbol('c_plsdev')
     is native(&library)
@@ -176,5 +191,15 @@ sub plstring3(int32, CArray[num64], CArray[num64], CArray[num64], Str)
 
 sub plpoly3(int32, CArray[num64], CArray[num64], CArray[num64], CArray[int32], int32)
     is symbol('c_plpoly3')
+    is native(&library)
+    is export { * }
+
+sub plscmap1n(int32)
+    is symbol('c_plscmap1n')
+    is native(&library)
+    is export { * }
+
+sub plscmap1l(int32, int32, CArray[num64], CArray[num64], CArray[num64], CArray[num64], int32)
+    is symbol('c_plscmap1l')
     is native(&library)
     is export { * }
