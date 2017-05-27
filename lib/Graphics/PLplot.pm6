@@ -130,3 +130,15 @@ method end {
     # Close PLplot library
     plend;
 }
+
+method version returns Str {
+    my $ver = CArray[int8].new;
+    $ver[79] = 0;
+    plgver($ver);
+    my $version = '';
+    for 0..$ver.elems -> $i {
+        last if $ver[$i] == 0;
+        $version ~= $ver[$i].chr;
+    }
+    return $version
+}
