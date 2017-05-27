@@ -1,3 +1,4 @@
+#!/usr/bin/env perl6
 
 #
 # Multiple window and color map 0 demo.
@@ -78,12 +79,9 @@ sub demo2 {
     my $r = CArray[int32].new;
     my $g = CArray[int32].new;
     my $b = CArray[int32].new;
-    
-    for 0..115 -> $i {
-        $r[$i] = 0;
-        $g[$i] = 0;
-        $b[$i] = 0;
-    }
+    $r[115] = 0;
+    $g[115] = 0;
+    $b[115] = 0;
 
     # Min & max lightness values
     my ($lmin, $lmax) = (0.15, 0.85);

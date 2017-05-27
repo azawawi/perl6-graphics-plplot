@@ -33,7 +33,7 @@ sub plinit
     is native(&library)
     is export { * }
 
-sub plgver(CArray[int8] is rw)
+sub plgver(CArray[int8])
     is symbol('c_plgver')
     is native(&library)
     is export { * }
