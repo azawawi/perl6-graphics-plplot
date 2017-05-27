@@ -21,12 +21,12 @@ method begin {
 }
 
 method environment(:$x-range, :$y-range, :$just, :$axis) {
-    plenv( $x-range[0].Num, $x-range[1].Num, $y-range[0].Num, $y-range[1].Num,
-        $just, $axis );
+    plenv($x-range[0].Num, $x-range[1].Num, $y-range[0].Num, $y-range[1].Num,
+        $just, $axis);
 }
 
 method label(Str :$x-axis, Str :$y-axis, Str :$title) {
-    pllab( $x-axis, $y-axis, $title );
+    pllab($x-axis, $y-axis, $title);
 }
 
 # Plot the data
@@ -39,7 +39,7 @@ method line(@points) {
         $yc[$i] = @points[$i][1];
     }
 
-    plline( $size, $xc, $yc );
+    plline($size, $xc, $yc);
 }
 
 =begin pod
@@ -99,7 +99,7 @@ Draw a line between two points
 =end pod
 
 method join($x1, $y1, $x2, $y2) {
-    pljoin( $x1.Num, $y1.Num, $x2.Num, $y2.Num );
+    pljoin($x1.Num, $y1.Num, $x2.Num, $y2.Num);
 }
 
 =begin pod
@@ -110,8 +110,8 @@ Write text inside the viewport
 
 =end pod
 method text(:@point, :@inclination, :$just, :$text) {
-    plptex( @point[0].Num, @point[1].Num, @inclination[0].Num,
-        @inclination[1].Num, $just.Num, $text );
+    plptex(@point[0].Num, @point[1].Num, @inclination[0].Num,
+        @inclination[1].Num, $just.Num, $text);
 }
 
 =begin pod
@@ -123,7 +123,7 @@ Write text relative to viewport boundaries
 =end pod
 
 method text-viewport(Str :$side,  :$disp, :$pos, :$just, Str :$text) {
-    plmtex( $side, $disp.Num, $pos.Num, $just.Num, $text );
+    plmtex($side, $disp.Num, $pos.Num, $just.Num, $text);
 }
 
 method end {

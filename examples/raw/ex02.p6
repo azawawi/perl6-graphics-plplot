@@ -30,27 +30,27 @@ sub MAIN {
 #
 # Draws a set of numbered boxes with colors according to cmap0 entry.
 #
-sub draw-windows( Int $nw, Int $cmap0-offset )
+sub draw-windows(Int $nw, Int $cmap0-offset)
 {
-    plschr( 0.0.Num, 3.5.Num );
-    plfont( 4 );
+    plschr(0.0.Num, 3.5.Num);
+    plfont(4);
 
     for 0..^$nw -> $i {
-        plcol0( $i + $cmap0-offset );
-        my $text = sprintf( "%d", $i );
-        pladv( 0 );
+        plcol0($i + $cmap0-offset);
+        my $text = sprintf("%d", $i);
+        pladv(0);
         my $vmin = 0.1;
         my $vmax = 0.9;
         for 0..2 -> $j {
-            plwidth( ($j + 1).Num );
-            plvpor( $vmin.Num, $vmax.Num, $vmin.Num, $vmax.Num );
-            plwind( 0.0.Num, 1.0.Num, 0.0.Num, 1.0.Num );
-            plbox( "bc", 0.0.Num, 0, "bc", 0.0.Num, 0 );
+            plwidth(($j + 1).Num);
+            plvpor($vmin.Num, $vmax.Num, $vmin.Num, $vmax.Num);
+            plwind(0.0.Num, 1.0.Num, 0.0.Num, 1.0.Num);
+            plbox("bc", 0.0.Num, 0, "bc", 0.0.Num, 0);
             $vmin += 0.1;
             $vmax -= 0.1;
         }
-        plwidth( 1.Num );
-        plptex( 0.5.Num, 0.5.Num, 1.0.Num, 0.0.Num, 0.5.Num, $text );
+        plwidth(1.Num);
+        plptex(0.5.Num, 0.5.Num, 1.0.Num, 0.0.Num, 0.5.Num, $text);
     }
 }
 
@@ -62,9 +62,9 @@ sub demo1 {
     plbop;
 
     # Divide screen into 16 regions
-    plssub( 4, 4 );
+    plssub(4, 4);
 
-    draw-windows( 16, 0 );
+    draw-windows(16, 0);
 
     pleop;
 }
@@ -89,7 +89,7 @@ sub demo2 {
     plbop;
 
     # Divide screen into 100 regions
-    plssub( 10, 10 );
+    plssub(10, 10);
 
     for 0..99 -> $i {
         #
@@ -100,14 +100,14 @@ sub demo2 {
         #
 
         # Vary hue uniformly from left to right
-        my $h = (( 360.0 / 10.0 ) * ( $i % 10 )).Num;
+        my $h = ((360.0 / 10.0) * ($i % 10)).Num;
         # Vary lightness uniformly from top to bottom, between min & max
-        my $l = ($lmin + ( $lmax - $lmin ) * ( $i / 10 ) / 9.0).Num;
+        my $l = ($lmin + ($lmax - $lmin) * ($i / 10) / 9.0).Num;
         # Use max saturation
         my $s = 1.0.Num;
 
         my (num64 $r1, num64 $g1, num64 $b1);
-        plhlsrgb( $h, $l, $s, $r1, $g1, $b1 );
+        plhlsrgb($h, $l, $s, $r1, $g1, $b1);
 
         # Use 255.001 to avoid close truncation decisions in this example.
         $r[$i + 16] = ($r1 * 255.001).Int;
@@ -118,16 +118,16 @@ sub demo2 {
     # Load default cmap0 colors into our custom set
     for 0..15 -> $i {
         my (int32 $red, int32 $green, int32 $blue);
-        plgcol0( $i, $red, $green, $blue );
+        plgcol0($i, $red, $green, $blue);
         $r[$i] = $red;
         $g[$i] = $green;
         $b[$i] = $blue;
     }
 
     # Now set cmap0 all at once (faster, since fewer driver calls)
-    plscmap0( $r, $g, $b, 116 );
+    plscmap0($r, $g, $b, 116);
 
-    draw-windows( 100, 16 );
+    draw-windows(100, 16);
 
     pleop;
 }
