@@ -228,3 +228,8 @@ sub plmeshc(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32,
     is symbol('c_plmeshc')
     is native(&library)
     is export { * }
+
+sub plhist(int32, CArray[num64], num64, num64, int32, int32)
+    is symbol('c_plhist')
+    is native(&library)
+    is export { * }
