@@ -103,10 +103,13 @@ sub MAIN {
             plcol0(1);
             plvpor(0.0.Num, 1.0.Num, 0.0.Num, 0.9.Num);
             plwind(-1.0.Num, 1.0.Num, -1.0.Num, 1.5.Num);
-            plw3d(1.0.Num, 1.0.Num, 1.2.Num, -3.0.Num, 3.0.Num, -3.0.Num, 3.0.Num, $zmin.Num, $zmax.Num, @alt[$k].Num, @az[$k].Num);
-            plbox3("bnstu", "x axis", 0.0.Num, 0,
-                "bnstu", "y axis", 0.0.Num, 0,
-                "bcdmnstuv", "z axis", 0.0.Num, 4);
+            plw3d(1.0.Num, 1.0.Num, 1.2.Num, -3.0.Num, 3.0.Num, -3.0.Num,
+                3.0.Num, $zmin.Num, $zmax.Num, @alt[$k].Num, @az[$k].Num);
+            plbox3(
+                "bnstu",     "x axis", 0.0.Num, 0,
+                "bnstu",     "y axis", 0.0.Num, 0,
+                "bcdmnstuv", "z axis", 0.0.Num, 4
+            );
 
             plcol0(2);
 
@@ -122,8 +125,8 @@ sub MAIN {
                 plot3d($x, $y, $z, XPTS, YPTS, @opt[$k] +| MAG_COLOR, 1);
             } elsif $i == 3 {
                 # magnitude colored wireframe plot with base contour
-                plmeshc($x, $y, $z, XPTS, YPTS, @opt[$k] +| MAG_COLOR +| BASE_CONT,
-                    $clevel, LEVELS);
+                plmeshc($x, $y, $z, XPTS, YPTS, @opt[$k] +| MAG_COLOR +|
+                    BASE_CONT, $clevel, LEVELS);
             }
 
             plcol0(3);
