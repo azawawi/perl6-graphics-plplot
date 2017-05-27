@@ -182,3 +182,29 @@ method clear-or-eject-page {
 method number-of-subpages($nx, $ny) {
     plssub($nx, $ny)
 }
+
+method hls-to-rgb($hue, $lightness, $saturation) {
+    my (num64 $r, num64 $g, num64 $b);
+    plhlsrgb($hue.Num, $lightness.Num, $saturation.Num, $r, $g, $b);
+    return $r.Rat, $g.Rat, $b.Rat;
+}
+
+method color-index0-rgb($index) {
+    my (int32 $red, int32 $green, int32 $blue);
+    plgcol0($index, $red, $green, $blue);
+    return ($red.Int, $green.Int, $blue.Int);
+}
+
+method set-cmap0-rgb-colors(@rgb) {
+    my $red = CArray[int32].new;
+    my $green = CArray[int32].new;
+    my $blue = CArray[int32].new;
+
+    for ^@rgb.elems -> $i {
+        $red[$i] = @rgb[$i][0];
+        $green[$i] = @rgb[$i][1];
+        $blue[$i] = @rgb[$i][2];
+    }
+
+    plscmap0($red, $green, $blue, @rgb.elems);
+}
