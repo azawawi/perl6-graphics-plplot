@@ -215,22 +215,6 @@ sub plmesh(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32)
     is native(&library)
     is export { * }
 
-sub plAlloc2dGrid(Pointer is rw, int32, int32)
-    is symbol('plAlloc2dGrid')
-    is native(&library)
-    is export { * }
-
-sub plFree2dGrid(Pointer, int32, int32)
-    is symbol('c_plFree2dGrid')
-    is native(&library)
-    is export { * }
-
-sub plMinMax2dGrid(Pointer, int32, int32, num64 is rw, num64 is rw)
-    is symbol('c_plMinMax2dGrid')
-    is native(&library)
-    is export { * }
-
-
 sub plot3d(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32,
         int32
     )
