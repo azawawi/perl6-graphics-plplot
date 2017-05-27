@@ -169,12 +169,16 @@ sub plscmap0(CArray[int32], CArray[int32], CArray[int32], int32)
     is native(&library)
     is export { * }
 
-sub plbox3(Str, Str, num64, int32, Str, Str, num64, int32, Str, Str, num64, int32)
+sub plbox3(Str, Str, num64, int32, Str, Str, num64, int32, Str, Str, num64,
+        int32
+    )
     is symbol('c_plbox3')
     is native(&library)
     is export { * }
 
-sub plw3d(num64, num64, num64, num64, num64, num64, num64, num64, num64, num64, num64)
+sub plw3d(num64, num64, num64, num64, num64, num64, num64, num64, num64, num64,
+        num64
+    )
     is symbol('c_plw3d')
     is native(&library)
     is export { * }
@@ -199,7 +203,44 @@ sub plscmap1n(int32)
     is native(&library)
     is export { * }
 
-sub plscmap1l(int32, int32, CArray[num64], CArray[num64], CArray[num64], CArray[num64], int32)
+sub plscmap1l(int32, int32, CArray[num64], CArray[num64], CArray[num64],
+        CArray[num64], int32
+    )
     is symbol('c_plscmap1l')
+    is native(&library)
+    is export { * }
+
+sub plmesh(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32)
+    is symbol('c_plmesh')
+    is native(&library)
+    is export { * }
+
+sub plAlloc2dGrid(Pointer is rw, int32, int32)
+    is symbol('plAlloc2dGrid')
+    is native(&library)
+    is export { * }
+
+sub plFree2dGrid(Pointer, int32, int32)
+    is symbol('c_plFree2dGrid')
+    is native(&library)
+    is export { * }
+
+sub plMinMax2dGrid(Pointer, int32, int32, num64 is rw, num64 is rw)
+    is symbol('c_plMinMax2dGrid')
+    is native(&library)
+    is export { * }
+
+
+sub plot3d(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32,
+        int32
+    )
+    is symbol('c_plot3d')
+    is native(&library)
+    is export { * }
+
+sub plmeshc(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32,
+        CArray[num64], int32
+    )
+    is symbol('c_plmeshc')
     is native(&library)
     is export { * }
