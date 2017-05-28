@@ -57,20 +57,18 @@ sub MAIN {
     # Initialize plplot
     plinit;
 
-    my @clevel;
     my $x = CArray[num64].new;
-    my $y = CArray[num64].new;
-    my $z = CArray[CArray[num64]].new;
-
     for ^XPTS -> $i {
         $x[$i] = 3.0 * ($i - (XPTS / 2)).Num / (XPTS / 2).Num;
     }
 
+    my $y = CArray[num64].new;
     for ^YPTS -> $i {
         $y[$i] = 3.0 * ($i - (YPTS / 2)).Num / (YPTS / 2).Num;
     }
 
     my ($zmin, $zmax) = (Inf, -Inf);
+    my $z = CArray[CArray[num64]].new;
     for ^XPTS -> $i {
         my $xx = $x[$i];
         $z[$i] = CArray[num64].new;
