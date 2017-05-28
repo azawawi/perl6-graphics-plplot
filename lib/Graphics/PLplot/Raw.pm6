@@ -210,19 +210,19 @@ sub plscmap1l(int32, int32, CArray[num64], CArray[num64], CArray[num64],
     is native(&library)
     is export { * }
 
-sub plmesh(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32)
+sub plmesh(CArray[num64], CArray[num64], CArray[CArray[num64]], int32, int32, int32)
     is symbol('c_plmesh')
     is native(&library)
     is export { * }
 
-sub plot3d(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32,
+sub plot3d(CArray[num64], CArray[num64], CArray[CArray[num64]], int32, int32, int32,
         int32
     )
     is symbol('c_plot3d')
     is native(&library)
     is export { * }
 
-sub plmeshc(CArray[num64], CArray[num64], CArray[num64], int32, int32, int32,
+sub plmeshc(CArray[num64], CArray[num64], CArray[CArray[num64]], int32, int32, int32,
         CArray[num64], int32
     )
     is symbol('c_plmeshc')

@@ -60,8 +60,7 @@ sub MAIN {
     my @clevel;
     my $x = CArray[num64].new;
     my $y = CArray[num64].new;
-    my $z = CArray[num64].new;
-    $z[XPTS * YPTS - 1] = 0.Num;
+    my $z = CArray[CArray[num64]].new;
 
     for ^XPTS -> $i {
         $x[$i] = 3.0 * ($i - (XPTS / 2)).Num / (XPTS / 2).Num;
@@ -74,9 +73,10 @@ sub MAIN {
     my ($zmin, $zmax) = (Inf, -Inf);
     for ^XPTS -> $i {
         my $xx = $x[$i];
+        $z[$i] = CArray[num64].new;
         for ^YPTS -> $j {
             my $yy = $y[$j];
-            $z[$j * XPTS + $i] = my $zz =  3.0 * (1.0 - $xx) * (1.0 - $xx)
+            $z[$i][$j] = my $zz =  3.0 * (1.0 - $xx) * (1.0 - $xx)
                 * exp(-($xx * $xx) - ($yy + 1.0) * ($yy + 1.0))
                 - 10.0 * ($xx / 5.0 - $xx ** 3.0 - $yy ** 5.0)
                 * exp(-$xx * $xx - $yy * $yy) - 1.0 / 3.0
@@ -115,8 +115,7 @@ sub MAIN {
 
             if $i == 0 {
                 # wireframe plot
-                #TODO fix
-                #plmesh($x, $y, $z, XPTS, YPTS, @opt[$k]);
+                plmesh($x, $y, $z, XPTS, YPTS, @opt[$k]);
             } elsif $i == 1 {
                 # magnitude colored wireframe plot
                 plmesh($x, $y, $z, XPTS, YPTS, @opt[$k] +| MAG_COLOR);
