@@ -204,7 +204,7 @@ sub plscmap1n(int32)
     is export { * }
 
 sub plscmap1l(int32, int32, CArray[num64], CArray[num64], CArray[num64],
-        CArray[num64], int32
+        CArray[num64], CArray[int32]
     )
     is symbol('c_plscmap1l')
     is native(&library)

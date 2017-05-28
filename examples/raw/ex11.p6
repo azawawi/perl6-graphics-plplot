@@ -33,9 +33,9 @@ sub cmap1-init {
     $i[0] = 0.0.Num;         # left boundary
     $i[1] = 1.0.Num;         # right boundary
 
-    my $h = CArray[int32].new;
-    $h[0] = 240;         # blue -> green -> yellow ->
-    $h[1] = 0;           # -> red
+    my $h = CArray[num64].new;
+    $h[0] = 240.Num;         # blue -> green -> yellow ->
+    $h[1] = 0.Num;           # -> red
 
     my $l = CArray[num64].new;
     $l[0] = 0.6.Num;
@@ -46,7 +46,7 @@ sub cmap1-init {
     $s[1] = 0.8.Num;
 
     plscmap1n(256);
-    plscmap1l(0, 2, $i, $h, $l, $s, Pointer.new);
+    plscmap1l(0, 2, $i, $h, $l, $s, CArray[int32].new);
 }
 
 sub MAIN {
@@ -76,9 +76,9 @@ sub MAIN {
         $z[$i] = CArray[num64].new;
         for ^YPTS -> $j {
             my $yy = $y[$j];
-            $z[$i][$j] = my $zz =  3.0 * (1.0 - $xx) * (1.0 - $xx)
+            $z[$i][$j] = my $zz = 3.0 * (1.0 - $xx) * (1.0 - $xx)
                 * exp(-($xx * $xx) - ($yy + 1.0) * ($yy + 1.0))
-                - 10.0 * ($xx / 5.0 - $xx ** 3.0 - $yy ** 5.0)
+                - 10.0 * ($xx / 5.0 - ($xx ** 3.0) - ($yy ** 5.0))
                 * exp(-$xx * $xx - $yy * $yy) - 1.0 / 3.0
                 * exp(-($xx + 1) * ($xx + 1) - ($yy * $yy));
             if $zmin > $zz {
